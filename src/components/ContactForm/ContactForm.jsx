@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { nanoid } from "nanoid";
-import { addContact } from "../../redux/contacts/contacts.slice"
+//import { nanoid } from "nanoid";
+//import { addContact } from "../../redux/contacts/contacts.slice"
 import style from './ContactForm.module.css';
-import { addTask } from "redux/contacts/contacts.thunk";
+import { addContact } from "redux/contacts/contacts.thunk";
 
 export const ContactForm = () => {
-  const allContactsBack = useSelector((state) => state.contacts.item)
+  const contactsFromBack = useSelector((state) => state.contacts.item)
   const AllContacts = useSelector((state) => state.contacts.contactsRed)
   const dispatch = useDispatch()
 
@@ -35,17 +35,17 @@ export const ContactForm = () => {
 
     }
     const newContact = {
-      id: nanoid(),
+      // id: nanoid(),
       name: name,
       number: number,
     }
     //dispatch(addContact(newContact))
-    dispatch(addTask(newContact))
+    dispatch(addContact(newContact))
 
   }
 
   const onDoppleContactInfoAdd = () => {
-    return AllContacts.find(contact => contact.number === number || contact.name === name);
+    return contactsFromBack.find(contact => contact.number === number || contact.name === name);
   }
 
   const onFormSubmit = (event) => {
@@ -55,7 +55,8 @@ export const ContactForm = () => {
     setNumber('');
 
   };
-  console.log('backend contacts ', allContactsBack)
+  console.log('backend contacts ', contactsFromBack)
+  console.log('localstorage  contacts ', AllContacts)
   return (
     <div>
 

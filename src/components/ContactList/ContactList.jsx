@@ -4,7 +4,7 @@ import style from './ContactList.module.css';
 import { ContactListItem } from "components/ContactListItem/ContactListItem";
 import { useSelector, useDispatch } from "react-redux";
 import { removeContact } from "../../redux/contacts/contacts.slice"
-import { SelectedContacts } from "../../redux/selectors"
+//import { SelectedContacts } from "../../redux/selectors"
 import { fetchContacts } from "redux/contacts/contacts.thunk";
 
 export const ContactList = () => {
@@ -18,16 +18,16 @@ export const ContactList = () => {
         dispatch(fetchContacts())
     }, [dispatch])
 
-    const FilteredContacts = useSelector(SelectedContacts)
+    // const FilteredContacts = useSelector(SelectedContacts)
 
 
     const onDeleteContact = (id) => {
         dispatch(removeContact(id))
     }
-    //console.log(status)
+    console.log(status)
     return (
         <>
-            {FilteredContacts.length === 0 ?
+            {/* {FilteredContacts.length === 0 ?
                 (<p> No saved contacts </p>) :
                 (<ul className={style.contactList}>
                     {FilteredContacts.map(item => (
@@ -36,8 +36,7 @@ export const ContactList = () => {
                         </li>
                     ))}
                 </ul>)
-
-            }
+            } */}
 
             <br />
             <hr />
