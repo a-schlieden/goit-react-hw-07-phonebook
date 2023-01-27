@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { STAUS } from "constants/constants";
+import { STATUS } from "constants/constants";
 import { ContactsInitState } from "./contacts.initstate";
 import { fetchContacts } from './contacts.thunk'
 
@@ -29,14 +29,14 @@ const contactsSlice = createSlice({
     },
     extraReducers: {
         [fetchContacts.pending]: (state) => {
-            state.status = STAUS.loading
+            state.status = STATUS.loading
         },
         [fetchContacts.fulfilled]: (state, action) => {
-            state.status = STAUS.success;
+            state.status = STATUS.success;
             state.item = action.payload;
         },
         [fetchContacts.rejected]: (state) => {
-            state.status = STAUS.error;
+            state.status = STATUS.error;
         },
         ////////////////
         // [addContactThunk.pending]: (state) => {

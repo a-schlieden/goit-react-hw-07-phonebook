@@ -13,7 +13,7 @@ export const ContactList = () => {
     const dispatch = useDispatch()
 
     const allContacts = useSelector(state => state.contacts.item)
-    // const status = useSelector(state => state.contacts.status)
+    const status = useSelector(state => state.contacts.status)
     useEffect(() => {
         dispatch(fetchContacts())
     }, [dispatch])
@@ -24,7 +24,7 @@ export const ContactList = () => {
     const onDeleteContact = (id) => {
         dispatch(removeContact(id))
     }
-    console.log(allContacts)
+    console.log(status)
     return (
         <>
             {FilteredContacts.length === 0 ?

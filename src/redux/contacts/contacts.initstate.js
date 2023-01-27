@@ -1,8 +1,8 @@
-import { STAUS } from "constants/constants";
+import { STATUS } from "constants/constants";
 
 export const ContactsInitState = {
     contacts: {
-        status: STAUS.idle,
+        status: STATUS.idle,
         items: [],
         isLoading: false,
         error: null

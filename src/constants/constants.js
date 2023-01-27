@@ -1,4 +1,4 @@
-export const STAUS = {
+export const STATUS = {
     idle: 'idle',
     loading: 'loading',
     success: 'success',
