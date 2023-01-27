@@ -24,7 +24,7 @@ export const ContactList = () => {
     const onDeleteContact = (id) => {
         dispatch(removeContact(id))
     }
-    console.log(status)
+    //console.log(status)
     return (
         <>
             {FilteredContacts.length === 0 ?

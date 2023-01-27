@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 import { addContact } from "../../redux/contacts/contacts.slice"
 import style from './ContactForm.module.css';
-
+import { addTask } from "redux/contacts/contacts.thunk";
 
 export const ContactForm = () => {
-
+  const allContactsBack = useSelector((state) => state.contacts.item)
   const AllContacts = useSelector((state) => state.contacts.contactsRed)
   const dispatch = useDispatch()
 
@@ -39,7 +39,8 @@ export const ContactForm = () => {
       name: name,
       number: number,
     }
-    dispatch(addContact(newContact))
+    //dispatch(addContact(newContact))
+    dispatch(addTask(newContact))
 
   }
 
@@ -52,8 +53,9 @@ export const ContactForm = () => {
     AddNewContact();
     setName('');
     setNumber('');
-  };
 
+  };
+  console.log('backend contacts ', allContactsBack)
   return (
     <div>
 

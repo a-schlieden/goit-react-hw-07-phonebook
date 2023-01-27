@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { STATUS } from "constants/constants";
 import { ContactsInitState } from "./contacts.initstate";
-import { fetchContacts } from './contacts.thunk'
+import { fetchContacts, addTask } from './contacts.thunk'
 
 
 const contactsSlice = createSlice({
@@ -39,16 +39,16 @@ const contactsSlice = createSlice({
             state.status = STATUS.error;
         },
         ////////////////
-        // [addContactThunk.pending]: (state) => {
-        //     state.status = STAUS.loading
-        // },
-        // [addContactThunk.fulfilled]: (state, action) => {
-        //     state.status = STAUS.success;
-        //     state.item.push(action.payload);
-        // },
-        // [addContactThunk.rejected]: (state) => {
-        //     state.status = STAUS.error;
-        // },
+        [addTask.pending]: (state) => {
+            state.status = STATUS.loading
+        },
+        [addTask.fulfilled]: (state, action) => {
+            state.status = STATUS.success;
+            state.item.push(action.payload);
+        },
+        [addTask.rejected]: (state) => {
+            state.status = STATUS.error;
+        },
         ////////////////
     }
 })
