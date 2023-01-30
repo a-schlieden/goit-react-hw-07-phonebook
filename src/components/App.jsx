@@ -1,9 +1,10 @@
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import { ContactForm } from "components/ContactForm/ContactForm";
 import { Filter } from "components/Filter/Filter";
 import { ContactList } from "components/ContactList/ContactList";
 
 export function App() {
-
   return (
 
     <div
@@ -21,8 +22,19 @@ export function App() {
       <hr />
       <h3>Find contacts by name</h3>
       <Filter />
-      <h3>My contacts</h3>
       <ContactList />
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+
     </div>
 
   );

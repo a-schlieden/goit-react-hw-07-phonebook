@@ -1,62 +1,56 @@
 import React from "react"
 import { useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import style from './ContactList.module.css';
 import { ContactListItem } from "components/ContactListItem/ContactListItem";
-import { useSelector, useDispatch } from "react-redux";
-import { removeContact } from "../../redux/contacts/contacts.slice"
-//import { SelectedContacts } from "../../redux/selectors"
-import { fetchContacts } from "redux/contacts/contacts.thunk";
+import { STATUS } from "constants/constants";
+import { SelectedContacts, Status, AllContacts } from "../../redux/selectors"
+import { fetchContacts, deleteContact } from "redux/contacts/contacts.thunk";
+import { Loader } from 'components/Loader/Loader';
 
 export const ContactList = () => {
 
-
     const dispatch = useDispatch()
 
-    const allContacts = useSelector(state => state.contacts.item)
-    const status = useSelector(state => state.contacts.status)
+    const status = useSelector(Status)
+    const FilteredContacts = useSelector(SelectedContacts)
+    const totalContacts = useSelector(AllContacts)
+
     useEffect(() => {
         dispatch(fetchContacts())
     }, [dispatch])
 
-    // const FilteredContacts = useSelector(SelectedContacts)
-
-
     const onDeleteContact = (id) => {
-        dispatch(removeContact(id))
+        dispatch(deleteContact(id))
     }
-    console.log(status)
+
     return (
         <>
-            {/* {FilteredContacts.length === 0 ?
-                (<p> No saved contacts </p>) :
-                (<ul className={style.contactList}>
-                    {FilteredContacts.map(item => (
-                        <li key={item.id} className={style.contactListItem}>
-                            <ContactListItem name={item.name} number={item.number} deleteContact={() => onDeleteContact(item.id)} />
-                        </li>
-                    ))}
-                </ul>)
-            } */}
+            <h3>My contacts </h3>
+            {(status === STATUS.idle || status === STATUS.loading) && <Loader />}
 
-            <br />
-            <hr />
-            <br />
-            {allContacts.length === 0 ?
-                (<p> No saved contacts fromback </p>) :
-                (<ul className={style.contactList}>
-                    <h3>Contacts from backend</h3>
-                    {allContacts.map(item => (
-                        <li key={item.id} className={style.contactListItem}>
-                            <ContactListItem name={item.name} number={item.number} deleteContact={() => onDeleteContact(item.id)} />
-                        </li>
-                    ))}
-                </ul>)
-
+            {FilteredContacts.length === 0 ?
+                (<p>No saved contacts</p>) :
+                (
+                    <>
+                        <p>You have {totalContacts.length} contacts</p>
+                        <ul className={style.contactList}>
+                            {FilteredContacts.map(item => (
+                                <li key={item.id} className={style.contactListItem}>
+                                    <ContactListItem
+                                        name={item.name}
+                                        number={item.number}
+                                        id={item.id}
+                                        deleteContact={() => onDeleteContact(item.id)}
+                                    />
+                                </li>
+                            ))}
+                        </ul>
+                    </>
+                )
             }
         </>
     );
 };
-
-
 
 

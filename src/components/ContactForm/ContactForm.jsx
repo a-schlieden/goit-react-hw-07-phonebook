@@ -1,14 +1,11 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-//import { nanoid } from "nanoid";
-//import { addContact } from "../../redux/contacts/contacts.slice"
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from "react-redux";
 import style from './ContactForm.module.css';
 import { addContact } from "redux/contacts/contacts.thunk";
 
 export const ContactForm = () => {
-  const contactsFromBack = useSelector((state) => state.contacts.item)
-  const AllContacts = useSelector((state) => state.contacts.contactsRed)
+  const contactsFromBack = useSelector((state) => state.contacts.contacts.items)
   const dispatch = useDispatch()
 
   const [name, setName] = useState('');
@@ -30,18 +27,14 @@ export const ContactForm = () => {
   const AddNewContact = () => {
 
     if (onDoppleContactInfoAdd(name, number)) {
-      alert(`Contact "${name}" or number "${number}" is already in your contactlist!`);
+      toast.error(`Contact "${name}" or number "${number}" is already in your contactlist!`);
       return;
-
     }
     const newContact = {
-      // id: nanoid(),
       name: name,
       number: number,
     }
-    //dispatch(addContact(newContact))
     dispatch(addContact(newContact))
-
   }
 
   const onDoppleContactInfoAdd = () => {
@@ -55,11 +48,9 @@ export const ContactForm = () => {
     setNumber('');
 
   };
-  console.log('backend contacts ', contactsFromBack)
-  console.log('localstorage  contacts ', AllContacts)
+
   return (
     <div>
-
       <form onSubmit={onFormSubmit} className={style.form}>
         <label className={style.formlabel}>
           Name:

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { toast } from 'react-toastify';
 
 axios.defaults.baseURL = "https://63d386248d4e68c14eac842f.mockapi.io";
 
@@ -8,30 +9,28 @@ export const fetchContacts = createAsyncThunk('contacts', async () => {
     return data;
 })
 
-
 export const addContact = createAsyncThunk(
-    "tasks/addContact",
+    "contacts/addContact",
     async (contact, thunkAPI) => {
         try {
             const response = await axios.post("/contacts", contact);
+            toast.success('Success !');
             return response.data;
-        } catch (e) {
-            return thunkAPI.rejectWithValue(e.message);
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err.message);
         }
     }
 );
 
-
-
-
-// import { contactsErrorAction, contactsLoadingAction, contactsSuccessAction } from './contacts.slice'
-
-// export const contactsApi = async (dispatch) => {
-//     dispatch(contactsLoadingAction())
-//     try {
-//         const { data } = await axios.get('https://63d386248d4e68c14eac842f.mockapi.io/contacts')
-//         dispatch(contactsSuccessAction(data))
-//     } catch {
-//         dispatch(contactsErrorAction())
-//     }
-// }
+export const deleteContact = createAsyncThunk(
+    "contacts/deleteContact",
+    async (contactId, thunkAPI) => {
+        try {
+            const response = await axios.delete(`/contacts/${contactId}`);
+            toast.success('Success !');
+            return response.data;
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err.message);
+        }
+    }
+);

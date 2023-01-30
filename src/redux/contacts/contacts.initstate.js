@@ -7,5 +7,6 @@ export const ContactsInitState = {
         isLoading: false,
         error: null
     },
-    filter: ""
+
 }
+

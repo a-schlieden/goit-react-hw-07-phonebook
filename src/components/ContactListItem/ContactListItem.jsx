@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import style from './ContactListItem.module.css';
 
 export const ContactListItem = ({ name, number, deleteContact }) => {
+
   return (
     <>
       <p>{name}</p>
